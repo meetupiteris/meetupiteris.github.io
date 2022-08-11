@@ -1,0 +1,40 @@
+baseURL = 'https://meetupiteris.github.io'
+languageCode = 'pt-br'
+title = 'Meetup Iteris'
+theme = 'hydex'
+RegularPages = "posts"
+
+[author]
+  name = "Meetup Iteris"
+  homepage = "https://meetupiteris.github.io"
+
+[permalinks]
+  post = "/:year/:month/:day/:title"
+
+[params]
+  truncate = "true"
+  copyright = "Copyright 2012"
+  defaultDescription = "Iteris Consultoria e Software"
+  github = "https://github.com/meetupiteris"
+  linkedin = "https://www.linkedin.com/company/iteris-consultoria-e-software/"
+  instagram = "https://instagram.com/iteris"
+  facebook = "https://fb.me/iteris"
+  twitter = "https://twitter.com/iteris"
+  telegram = "https://t.me/Iteris"
+  githubrepo = "meetupiteris/meetupiteris.github.io"
+  rss = "true"
+
+  [menu]
+    # Shown in the side menu.
+    [[menu.main]]
+      name = "Posts"
+      pre = "<i class='fa fa-list fa-fw'></i>"
+      weight = 2
+      identifier = "posts"
+      url = "/posts"
+    [[menu.main]]
+      name = "Sobre"
+      pre = "<i class='fa fa-user fa-fw'></i>"
+      weight = 7
+      identifier = "about"
+      url = "/about/"
