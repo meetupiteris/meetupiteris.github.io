@@ -1,4 +1,4 @@
-baseURL = 'http://meetup.diegoneves.eti.br'
+baseURL = 'https://meetupiteris.github.io'
 languageCode = 'pt-br'
 title = 'Meetup Iteris'
 theme = 'hydex'
@@ -6,7 +6,7 @@ RegularPages = "posts"
 
 [author]
   name = "Meetup Iteris"
-  homepage = "http://meetup.diegoneves.eti.br"
+  homepage = "https://meetupiteris.github.io"
 
 [permalinks]
   post = "/:year/:month/:day/:title"
