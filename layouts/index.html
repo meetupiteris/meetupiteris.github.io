@@ -1,0 +1,22 @@
+{{ partial "head.html" . }}
+<div class="content container">
+  <div class="posts">
+    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections) }}
+    {{ range $paginator.Pages }}
+      {{ if .Draft }}
+        {{ .Scratch.Set "draftPage" true }}
+      {{ else }}
+        {{ .Scratch.Set "draftPage" false }}
+      {{ end }}
+    <div class="post">
+      <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+      <span class="post-date">
+        {{ .Date.Format "Jan 2, 2006" }}{{ if not .Site.Params.hideReadingTime }} &middot; {{ .ReadingTime }} minute read{{ end }}
+      </span>
+      <a href="{{ .Permalink }}">Read On &rarr;</a>     
+    </div>
+    {{ end }}
+    {{ template "_internal/pagination.html" . }}
+  </div>
+</div>
+{{ partial "foot.html" . }}
