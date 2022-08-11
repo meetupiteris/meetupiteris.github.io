@@ -1,0 +1,48 @@
+<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en lang=en-us><head><link href=https://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>Criando Um Make File Legal &#183; Meetup Iteris</title><link rel=stylesheet href=https://meetupiteris.github.io/css/poole.css><link rel=stylesheet href=https://meetupiteris.github.io/css/hyde.css><link rel=stylesheet href=https://meetupiteris.github.io/css/poole-overrides.css><link rel=stylesheet href=https://meetupiteris.github.io/css/hyde-overrides.css><link rel=stylesheet href=https://meetupiteris.github.io/css/hydex.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface"><link rel=stylesheet href=//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://meetupiteris.github.io/touch-icon-144-precomposed.png><link href=https://meetupiteris.github.io/favicon.png rel=icon><meta name=description content="Iteris Consultoria e Software"><meta name=keywords content></head><body><div class=sidebar><div class="container sidebar-sticky"><div class=sidebar-about><h1>Meetup Iteris</h1></div><ul class=sidebar-nav><li class=sidebar-nav-item><a href=https://meetupiteris.github.io/>Blog</a></li><li class=sidebar-nav-item><i class='fa fa-list fa-fw'></i><a href=https://meetupiteris.github.io/posts>Posts</a></li><li class=sidebar-nav-item><i class='fa fa-user fa-fw'></i><a href=https://meetupiteris.github.io/about/>Sobre</a></li></ul><ul class=sidebar-nav><li class=sidebar-nav-item><a href=https://github.com/meetupiteris><i class="fa fa-github-square fa-3x"></i></a>
+<a href=https://www.linkedin.com/company/iteris-consultoria-e-software/><i class="fa fa-linkedin-square fa-3x"></i></a>
+<a href=https://fb.me/iteris><i class="fa fa-facebook-square fa-3x"></i></a>
+<a href=https://twitter.com/iteris><i class="fa fa-twitter-square fa-3x"></i></a>
+<a href=https://meetupiteris.github.io/index.xml type=application/rss+xml><i class="fa fa-rss-square fa-3x"></i></a></li></ul><p>Copyright 2012&copy; <a href=https://meetupiteris.github.io/license/>License</a><br>Powered by <a href=http://gohugo.io>Hugo</a> and <a href=https://github.com/zyro/hyde-x>Hyde-X</a></p></div></div><div class="content container"><div class=post><h1 class=post-title>Criando Um Make File Legal</h1><p>Para criar um Makefile legal, basta criar um arquivo com o nome de <code>Makefile</code> e colocar os comandos, como no exemplo:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>HUGO_VERSION<span style=color:#f92672>=</span>0.95.0
+</span></span><span style=display:flex><span>HUGO_IMAGE<span style=color:#f92672>=</span>klakegg/hugo
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># HELP</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># This will output the help for each task</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html</span>
+</span></span><span style=display:flex><span>.PHONY: help
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>help: <span style=color:#75715e>## This help.</span>
+</span></span><span style=display:flex><span>    @awk <span style=color:#e6db74>&#39;BEGIN {FS = &#34;:.*?## &#34;} /^[a-zA-Z_-]+:.*?## / {printf &#34;\033[36m%-30s\033[0m %s\n&#34;, $$1, $$2}&#39;</span> <span style=color:#66d9ef>$(</span>MAKEFILE_LIST<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.DEFAULT_GOAL :<span style=color:#f92672>=</span> help
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>hugo-new-site: <span style=color:#75715e>## New hugo site - Create a new site in this path</span>
+</span></span><span style=display:flex><span>    docker container run --rm -v $$PWD:/app -w /app <span style=color:#66d9ef>$(</span>HUGO_IMAGE<span style=color:#66d9ef>)</span>:<span style=color:#66d9ef>$(</span>HUGO_VERSION<span style=color:#66d9ef>)</span> new site . --force
+</span></span><span style=display:flex><span>    sudo chown $$USER:$$USER . -R
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>hugo-new-theme: <span style=color:#75715e>## New hugo theme - Install a new hugo theme: use THEMEURL=https://github.com/gituser/hugotheme.git THEMENAME=tema</span>
+</span></span><span style=display:flex><span>    git submodule add <span style=color:#66d9ef>$(</span>THEMEURL<span style=color:#66d9ef>)</span> themes/<span style=color:#66d9ef>$(</span>THEMENAME<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    echo theme <span style=color:#f92672>=</span> <span style=color:#ae81ff>\&#34;</span><span style=color:#66d9ef>$(</span>THEMENAME<span style=color:#66d9ef>)</span><span style=color:#ae81ff>\&#34;</span> &gt;&gt; config.toml
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>hugo-new-post: <span style=color:#75715e>## New hugo post - Create a new post: use POST=post-name.md</span>
+</span></span><span style=display:flex><span>    docker container run --rm -v $$PWD:/app -w /app <span style=color:#66d9ef>$(</span>HUGO_IMAGE<span style=color:#66d9ef>)</span>:<span style=color:#66d9ef>$(</span>HUGO_VERSION<span style=color:#66d9ef>)</span> new posts/<span style=color:#66d9ef>$(</span>POST<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    sudo chown $$USER:$$USER . -R
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>hugo-new-page: <span style=color:#75715e>## New hugo page - Create a new page: use PAGE=page-name.md</span>
+</span></span><span style=display:flex><span>    docker container run --rm -v $$PWD:/app -w /app <span style=color:#66d9ef>$(</span>HUGO_IMAGE<span style=color:#66d9ef>)</span>:<span style=color:#66d9ef>$(</span>HUGO_VERSION<span style=color:#66d9ef>)</span> new <span style=color:#66d9ef>$(</span>PAGE<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    sudo chown $$USER:$$USER . -R
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>hugo-server: <span style=color:#75715e>## Start hugo server</span>
+</span></span><span style=display:flex><span>    docker container run --rm -v $$PWD:/app -w /app -p 1313:1313 <span style=color:#66d9ef>$(</span>HUGO_IMAGE<span style=color:#66d9ef>)</span>:<span style=color:#66d9ef>$(</span>HUGO_VERSION<span style=color:#66d9ef>)</span> server -D
+</span></span><span style=display:flex><span>    sudo chown $$USER:$$USER . -R
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>hugo-build: <span style=color:#75715e>## Build hugo site</span>
+</span></span><span style=display:flex><span>    docker container run --rm -v $$PWD:/app -w /app <span style=color:#66d9ef>$(</span>HUGO_IMAGE<span style=color:#66d9ef>)</span>:<span style=color:#66d9ef>$(</span>HUGO_VERSION<span style=color:#66d9ef>)</span> -D
+</span></span><span style=display:flex><span>    sudo chown $$USER:$$USER . -R
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>hugo-sh: <span style=color:#75715e>## Access hugo shell</span>
+</span></span><span style=display:flex><span>    docker container run -ti --rm -v $$PWD:/app -w /app --entrypoint <span style=color:#e6db74>&#34;&#34;</span> klakegg/hugo:0.95.0 sh
+</span></span><span style=display:flex><span>    sudo chown $$USER:$$USER . -R
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>hugo-fix-perm: <span style=color:#75715e>## Fix permissions</span>
+</span></span><span style=display:flex><span>    sudo chown $$USER:$$USER . -R
+</span></span></code></pre></div></div></div></body></html>
